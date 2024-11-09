@@ -42,35 +42,17 @@ class AuthController extends Controller
 
     
     public function logout(){
-        Session::flush();
+        Session::flush(); //eleimina los datos de la sesión
         Auth::logout();
         return redirect()->route('login');
     } 
 
-    /*
-    public function logout(Request $request){
-    
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    redirect()->route('login');
-} */
-
     public function home(){
         return view('modules/dashboard/home');
     }
-    /*
-    public function login(Request $request){
-        $request->validate([
-            'email' => 'required|String|email',
-            'password' => 'required|String',
-        ]);
 
-        if($auth = auth()->attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->route('home')->with('success', 'Login successful');
-    } 
+    public function dashboard(){
+    return view('modules/dashboard/dashboard'); 
+    }
 
-        return redirect()->back();
-}
-*/
 }

@@ -3,6 +3,7 @@
 @section('title', 'Listado de Usuarios')
 
 @section('content')
+@include('partials.menu')
 <h1>LISTA DE USUARIOS</h1>
 <div class="text-end">
     <a href="{{ route('user.create') }}" class="btn btn-primary">Crear</a>
