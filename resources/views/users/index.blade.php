@@ -11,6 +11,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+        <th scope="col">ID</th>
         <th scope="col">Usuario</th>
         <th scope="col">Correo</th>
         <th scope="col">Rol</th>
@@ -21,9 +22,10 @@
     <tbody>
     @foreach($users as $user)
         <tr>
-            <td>{{ $product->name }}</td>
-            <td>{{ $product->password }}</td>
-            <td>{{ $user->rol}}</td>
+            <td>{{ $user->id }}</td>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
+            <td>{{ $user->role }}</td>
             <td>
                 <a href="{{ route('user.update', $user->id)}}" class="btn btn-primary"> Editar </a>
             </td>
@@ -34,6 +36,6 @@
     @endforeach
     </tbody>
 </table>
-{{ $products->links('pagination::bootstrap-4') }}
+{{ $users->links('pagination::bootstrap-4') }}
 
 @endsection

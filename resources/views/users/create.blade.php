@@ -25,13 +25,25 @@
         </div>
         <br>
         <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" value="{{ old('email') }}">
+        </div>
+        <br>
+        <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" value="{{ old('password') }}">
         </div>
         <br>
         <div class="mb-3">
             <label for="role" class="form-label">Rol</label>
-            <input type="role" class="form-control" id="role" name="role" placeholder="Rol" value="{{ old('role') }}">
+            <select class="form-control" id="role" name="role" required>
+                <option value="" disabled selected>Seleccione un rol</option>
+                <option value="cliente" {{ old('role', $user->role ?? '') == 'cliente' ? 'selected' : '' }}>Cliente</option>
+                <option value="administrador" {{ old('role', $user->role ?? '') == 'administrador' ? 'selected' : '' }}>Administrador</option>
+            </select>
+            @error('role')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Enviar</button>

@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         @yield('content')
+        @include('sweetalert::alert')
     </div>
 </body>
 </html>

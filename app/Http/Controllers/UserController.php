@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(4);
-        return view('users.index', compact('user'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -31,16 +31,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'role' => 'required|in:cliente,administrador',
+            'password' => 'required|min:6',
         ]);
         
         $validatedData['password'] = bcrypt($validatedData['password']);
-
+        //$validatedData['rol'] = 'cliente';
         User::create($validatedData);
-        
+        Alert::success('Éxito', 'El usuario ha sido creado correctamente')->flash();
         return redirect()->route('user.index');
+
     }
 
     /**
@@ -57,7 +59,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('users.update', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -66,22 +68,24 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
-
-        $user = User::find($request->$id);
-
-        if($user){
+    
+        $user = User::find($id);
+    
+        if ($user) {
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->save();   
-            Alert::success('Exito', 'Los datos han sido guardados correctamente')->flash();
+            $user->save();
+            
+            Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
         } else {
             Alert::error('Error', 'Usuario no encontrado')->flash();
         }
+    
         return redirect()->route('user.index');
-        Alert::success('Exito')->flash();
+        Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
     }
 
     /**
@@ -91,6 +95,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        Alert::success('Éxito', 'El usuario ha sido eliminado correctamente')->flash();
         return redirect()->route('user.index');
     }
 }

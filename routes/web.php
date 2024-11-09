@@ -25,6 +25,6 @@ Route::post('/usuario/creado', action:[UserController::class,'store'])->name('us
 Route::get('/usuario/index',[UserController::class,'index'])->name('user.index');
 
 Route::get('/usuario/update/{id}',[UserController::class,'edit'])->name('user.update');
-Route::post('/usuario/update', [UserController::class,'update'])->name('user.update.data');
+Route::put('/usuario/update/{id}', [UserController::class,'update'])->name('user.update.data');
 
 Route::get('/usuario/delete/{id}',[UserController::class,'destroy'])->name('user.destroy');
