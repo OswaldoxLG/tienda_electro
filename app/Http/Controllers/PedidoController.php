@@ -37,7 +37,7 @@ class PedidoController extends Controller
 
     public function edit($id)
     {
-        $pedido = Pedido::findOrFail($id);
+        $pedido = Pedido::find($id);
         return view('pedidos.edit', compact('pedido'));
     }
 
@@ -48,7 +48,7 @@ class PedidoController extends Controller
             'total' => 'required|numeric',
         ]);
 
-        $pedido = Pedido::findOrFail($id);
+        $pedido = Pedido::find($id);
 
         if ($pedido) {
             $pedido->estado = $request->estado;
@@ -65,7 +65,7 @@ class PedidoController extends Controller
 
     public function destroy($id)
     {
-        $pedido = Pedido::findOrFail($id);
+        $pedido = Pedido::find($id);
         $pedido->delete();
         Alert::success('Éxito', 'El usuario ha sido eliminado correctamente')->flash();
         return redirect()->route('pedido.index');
