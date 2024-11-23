@@ -29,8 +29,9 @@ class ProductoController extends Controller
         ]);
 
         Producto::create($request->all());
-        Alert::success('Éxito', 'El producto ha sido creado correctamente')->flash();
-        return redirect()->route('producto.index');
+        //Alert::success('Éxito', 'El producto ha sido creado correctamente')->flash();
+        //return redirect()->route('producto.index');
+        return response()->json(['success' =>'producto creado correctamente']);
     }
 
     public function show($id)
@@ -65,8 +66,9 @@ class ProductoController extends Controller
             Alert::error('Error', 'Producto no encontrado')->flash();
         }
     
-        return redirect()->route('producto.index');
-        Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
+        //return redirect()->route('producto.index');
+        //Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
+        return response()->json(['success' =>'producto actualizado correctamente']);
     }
 
     public function destroy($id)

@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(4);
+        $users = User::paginate(6);
         return view('users.index', compact('users'));
     }
 
@@ -39,10 +39,11 @@ class UserController extends Controller
         
         $validatedData['password'] = bcrypt($validatedData['password']);
         //$validatedData['rol'] = 'cliente';
+        
         User::create($validatedData);
-        Alert::success('Éxito', 'El usuario ha sido creado correctamente')->flash();
-        return redirect()->route('user.index');
-
+        //Alert::success('Éxito', 'El usuario ha sido creado correctamente')->flash();
+        //return redirect()->route('user.index');
+        return response()->json(['success' =>'usuario creado correctamente']);
     }
 
     /**
@@ -84,8 +85,9 @@ class UserController extends Controller
             Alert::error('Error', 'Usuario no encontrado')->flash();
         }
     
-        return redirect()->route('user.index');
-        Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
+        //return redirect()->route('user.index');
+        //Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
+        return response()->json(['success' =>'usuario actualizado correctamente']);
     }
 
     /**

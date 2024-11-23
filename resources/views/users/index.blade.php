@@ -6,13 +6,13 @@
 @include('partials.menu')
 <h1>LISTA DE USUARIOS</h1>
 <div class="text-end">
-    <a href="{{ route('user.create') }}" class="btn btn-primary">Crear</a>
+    <a href="{{ route('user.create') }}" class="btn btn-primary" id="crear_user">Crear</a>
 </div>
 <br>
 <table class="table table-striped">
     <thead>
         <tr>
-        <th scope="col">ID</th>
+        <th scope="col">id</th>
         <th scope="col">Usuario</th>
         <th scope="col">Correo</th>
         <th scope="col">Rol</th>

@@ -9,8 +9,8 @@
                 <h1>Bienvenido</h1>
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{route('dashboard')}}" class="btn btn-primary">CRUDS</a>
-                        <a href="{{route('logout')}}" class="btn btn-danger">Salir</a>
+                        <a href="{{route('dashboard')}}" class="btn btn-primary" id="dash">CRUDS</a>
+                        <a href="{{route('logout')}}" class="btn btn-danger" id="salir">Salir</a>
                     </div>
                 </div>
             </div>

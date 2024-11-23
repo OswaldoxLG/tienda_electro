@@ -17,7 +17,7 @@
 
     <h1>CREAR USUARIO</h1>
 
-    <form action="{{ route('user.store') }}" method="POST">
+    <form action="{{ route('user.store') }}" method="POST" id="form_crear_user">
         @csrf   
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
@@ -46,8 +46,57 @@
             @enderror
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-primary" id="envio_user">Enviar</button>
         <a href="{{ route('user.index') }}" class="btn btn-secondary">Volver</a>
     </form>
 </div>
+<script>
+    $(document).ready(function(){ //Se asegura que el DOM esté cargado antes de ejecutar el código jquery
+
+        $('#form_crear_user').on('submit', function(event){ //manejador de eventos para el evento submit
+            event.preventDefault() //evita que la página se recargue 
+            //alert("Envio de formulario")
+
+            if ($('#name').val() === '') {
+                    Swal.fire("¡Error!", "Por favor, ingresa un nombre.", "error"); 
+                    return; // Detener la ejecución si el nombre está vacío
+                }
+
+            if ($('#password').val() === '') {
+                swal.fire("¡Error!", "Por favor, ingresa una contraseña", "error");
+                return;
+            }
+
+            if ($('#email').val() === '') {
+                swal.fire("¡Error!", "Por favor, ingresa una correo", "error");
+                return;
+            }
+
+            var data = $(this).serialize(); //recolecta todos los campos del form en un url
+            console.log(data)
+
+            var url = $(this).attr('action') //extrae la ruta de envío de los datos.
+            console.log(url) 
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                
+                success: function(response){
+                    Swal.fire("¡Éxito!", "Usuario creado exitosamente.", "success").then(() => {
+                            $('#form_crear_user')[0].reset(); //limpia los campos del formulario
+                            console.log(response)
+                    });
+                },
+                error: function(xhr){
+                    var errors = xhr.responseJSON.errors; //los errores que devuelve el servidor enviados en JSON
+                    $.each(errors, function(key, value) { //itera sobre cada error en el objeto error
+                    Swal.fire("¡Error!", value[0], "error"); 
+                    });
+                }
+            });
+        });
+    });
+</script>
 @endsection

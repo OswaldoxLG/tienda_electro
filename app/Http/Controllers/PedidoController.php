@@ -26,8 +26,9 @@ class PedidoController extends Controller
         ]);
 
         Pedido::create($validatedData);
-        Alert::success('Éxito', 'El pedido ha sido creado correctamente')->flash();
-        return redirect()->route('pedido.index');
+        //Alert::success('Éxito', 'El pedido ha sido creado correctamente')->flash();
+        //return redirect()->route('pedido.index');
+        return response()->json(['success' =>'pedido creado correctamente']);
     }
 
     public function show($id)
@@ -59,8 +60,9 @@ class PedidoController extends Controller
             Alert::error('Error', 'Pedido no encontrado')->flash();
         }
     
-        return redirect()->route('pedido.index');
-        Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
+        //return redirect()->route('pedido.index');
+        //Alert::success('Éxito', 'Los datos han sido guardados correctamente')->flash();
+        return response()->json(['success' =>'pedido actualizado correctamente']);
     }
 
     public function destroy($id)
